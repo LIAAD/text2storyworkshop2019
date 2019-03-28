@@ -52,56 +52,41 @@ jQuery(function ($) {
     }());
 
     // --------------------------------------------------------------------
-    // Google Map
+    // Map
     // --------------------------------------------------------------------
 
     (function () {
-        if ($('#googleMap').length > 0) {
+        var latitude  = 50.942550; //If you unable to find latitude and longitude of your address. Please visit http://www.latlong.net/convert-address-to-lat-long.html you can easily generate.
+        var longitude = 6.952160;
+        var map_zoom  = 14;
+      
+        var platform = new H.service.Platform({
+            'app_id': 'IwGH4C4l25qnAx4Ysqsb',
+            'app_code': 'j3LDYCZGo1TBuCP3lxwEqw'
+          });
 
-            //set your google maps parameters
-            var $latitude  = 50.942550, //If you unable to find latitude and longitude of your address. Please visit http://www.latlong.net/convert-address-to-lat-long.html you can easily generate.
-                $longitude = 6.952160,
-                $map_zoom  = 14;
-            /* ZOOM SETTING */
+          // Obtain the default map types from the platform object:
+            var defaultLayers = platform.createDefaultLayers();
+          
+            // Instantiate (and display) a map object:
+            var map = new H.Map(
+            document.getElementById('mapContainer'),
+            defaultLayers.normal.map);
+           
+            // center address
+            map.setCenter({lat:latitude, lng:longitude});
+            map.setZoom(map_zoom);
+            
+            // add marker
+            map.addObject(new H.map.Marker({lat:latitude, lng:longitude}));
 
-            //google map custom marker icon
-            var $marker_url = 'img/google-map-marker.png';
+            //Step 3: make the map interactive
+            // MapEvents enables the event system
+            // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+            var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+            // Create the default UI components
+            var ui = H.ui.UI.createDefault(map, defaultLayers);
 
-            //we define here the style of the map
-            var style = [{
-                "stylers" : [{
-                    "hue" : "#000"
-                }, {
-                    "saturation" : 100
-                }, {
-                    "gamma" : 1.15
-                }, {
-                    "lightness" : 5
-                }]
-            }];
-
-            //set google map options
-            var map_options = {
-                center            : new google.maps.LatLng($latitude, $longitude),
-                zoom              : $map_zoom,
-                panControl        : true,
-                zoomControl       : true,
-                mapTypeControl    : false,
-                streetViewControl : false,
-                mapTypeId         : google.maps.MapTypeId.ROADMAP,
-                scrollwheel       : false,
-                styles            : style,
-            }
-            //initialize the map
-            var map = new google.maps.Map(document.getElementById('googleMap'), map_options);
-            //add a custom marker to the map
-            var marker = new google.maps.Marker({
-                position : new google.maps.LatLng($latitude, $longitude),
-                map      : map,
-                visible  : true,
-                icon     : $marker_url
-            });
-        }
     }());
 
 }); // JQuery end
