@@ -56,10 +56,10 @@ jQuery(function ($) {
     // --------------------------------------------------------------------
 
     (function () {
-        var latitude  = 50.942550; //If you unable to find latitude and longitude of your address. Please visit http://www.latlong.net/convert-address-to-lat-long.html you can easily generate.
-        var longitude = 6.952160;
+        var latitude  = 50.944512; //If you unable to find latitude and longitude of your address. Please visit http://www.latlong.net/convert-address-to-lat-long.html you can easily generate.
+        var longitude = 6.9503217;
         var map_zoom  = 14;
-      
+
         var platform = new H.service.Platform({
             'app_id': 'IwGH4C4l25qnAx4Ysqsb',
             'app_code': 'j3LDYCZGo1TBuCP3lxwEqw'
@@ -67,16 +67,16 @@ jQuery(function ($) {
 
           // Obtain the default map types from the platform object:
             var defaultLayers = platform.createDefaultLayers();
-          
+
             // Instantiate (and display) a map object:
             var map = new H.Map(
             document.getElementById('mapContainer'),
             defaultLayers.normal.map);
-           
+
             // center address
             map.setCenter({lat:latitude, lng:longitude});
             map.setZoom(map_zoom);
-            
+
             // add marker
             map.addObject(new H.map.Marker({lat:latitude, lng:longitude}));
 
